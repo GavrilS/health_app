@@ -11,9 +11,7 @@
     - id(ID) -> automatically generated
     - title(Text)** -> the main title of the article
     - description(Text)** -> a brief description of the article theme
-    - data(JSON) -> in-depth information about the topic of the article; json format field, where the keys are sub-topics and their values are the information related to the sub-topic
-    - image_gallery_id(ID) -> foreign-key to the image_gallery table, where we have photos, relevant for this page; Many-To-Many relation
-    - video_gallery_id(ID) -> foreign-key to the video_gallery table, where we have relevant video links for this article; Many-To-Many relation
+    - sections(JSON) -> in-depth information about the topic of the article; json format field, where the keys are sub-topics and their values are the information related to the sub-topic
 
 * image_gallery
     - id(ID) -> automatically generated
