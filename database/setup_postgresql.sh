@@ -2,13 +2,13 @@
 
 # Install Postgresql using Docker
 echo "*** Install Postgresql using Docker"
-docker pull postgres
+sudo docker pull postgres
 # To install a specific version of postgres, like 14.5, run:
 # docker pull postgres:14.5 
 
 # Create and run a postgresql container
 echo "*** Create and run a postgresql container"
-docker run -d --name postgres -p 5432:5432 -e POSTGRES_PASSWORD=postgres postgres
+sudo docker run -d --name postgres -p 5432:5432 -e POSTGRES_PASSWORD=postgres postgres
 # -d -> detached mode in the background
 # --name -> assigns a name to the container
 # -p maps the container's port to the host's port
@@ -17,7 +17,7 @@ docker run -d --name postgres -p 5432:5432 -e POSTGRES_PASSWORD=postgres postgre
 
 # Check if the postgres container is running
 echo "*** Check if the postgres container is running"
-docker ps
+sudo docker ps
 
 # Connect to the PostgreSQL Database
 echo "Connect to the PostgreSQL Database from the host machine with this command:"

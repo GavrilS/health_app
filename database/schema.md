@@ -23,7 +23,7 @@
 
 * video_gallery
     - id(ID) -> automatically generated
-    - video_links(Text) -> a link to a video relevant for the associated article
+    - video_link(Text) -> a link to a video relevant for the associated article
     - sub_topic(Text) -> which section of the article this video relates to; if not provided it will go to the default gallery section of the article
     - article_id(ID) -> foreign-key to the articles table; Many-To-Many relation
 
