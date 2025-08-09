@@ -29,5 +29,5 @@ echo "sudo docker exec -it postgres psql -h localhost -U postgres"
 
 # Execute the database/tables setup file
 echo "*** Initial setup of the database/tables for the project"
-echo "sudo docker exec -it postgres psql -h localhost -U postgres -f ./setup_db.sql"
-sudo docker exec -it postgres psql -h localhost -U postgres -f ./setup_db.sql
+echo "cat ./setup_db.sql | sudo docker exec -i postgres psql -h localhost -U postgres"
+cat ./setup_db.sql | sudo docker exec -i postgres psql -h localhost -U postgres
