@@ -16,6 +16,7 @@
     - id(ID) -> automatically generated
     - heading(Text)** -> the heading of the segment
     - description(Text)** -> the information body of the article segment
+    - order(int)** -> the order of appearance in the article layout
     - article_id(ID)** -> the ID of the article it is a part of
 
 * image_gallery
