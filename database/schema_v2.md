@@ -11,19 +11,26 @@
     - id(ID) -> automatically generated
     - title(Text)** -> the main title of the article
     - description(Text)** -> a brief description of the article theme
-    - sections(JSON) -> in-depth information about the topic of the article; json format field, where the keys are sub-topics and their values are the information related to the sub-topic
+
+* segment
+    - id(ID) -> automatically generated
+    - heading(Text)** -> the heading of the segment
+    - description(Text)** -> the information body of the article segment
+    - article_id(ID)** -> the ID of the article it is a part of
 
 * image_gallery
     - id(ID) -> automatically generated
     - image(Blob) -> an image that is relevant for the associated article
-    - sub_topic(Text) -> which section of the article this image relates to; if not provided it will go to the default gallery section of the article
-    - article_id(ID) -> foreign-key to the articles table; Many-To-Many relation
+    - article_id(ID) -> foreign-key to the articles table
+    - segment_id(ID) -> the id of the segment under which it will be shown
+    ** Either article_id or segment_id or both need to be populated
 
 * video_gallery
     - id(ID) -> automatically generated
     - video_link(Text) -> a link to a video relevant for the associated article
-    - sub_topic(Text) -> which section of the article this video relates to; if not provided it will go to the default gallery section of the article
-    - article_id(ID) -> foreign-key to the articles table; Many-To-Many relation
+    - article_id(ID) -> foreign-key to the articles table
+    - segment_id(ID) -> the id of the segment under which it will be shown
+    ** Either article_id or segment_id or both need to be populated
 
 ^^ Legend:
     ** -> required field
