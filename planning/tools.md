@@ -4,6 +4,10 @@ We will use the PostgreSQL because it fits the app's needs well. Since most page
 
 We will also have a table with references for each page to a gallery of images/videos that are relevant for it.
 
+# Database v2
+
+For the database we will use MariaDB.
+
 # Back-End
 
 The back-end will be written on Python. We will also use Flask to build the web app.
