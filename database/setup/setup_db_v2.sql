@@ -34,11 +34,11 @@ CREATE TABLE segments (
     id UUID DEFAULT UUID_v4(),
     heading VARCHAR(100) NOT NULL,
     description TEXT NOT NULL,
-    order SMALLINT NOT NULL,
+    segment_order TINYINT UNSIGNED,
     PRIMARY KEY (id)
 );
 
-DROP TABLE IF NOT EXISTS image_gallery;
+DROP TABLE IF EXISTS image_gallery;
 
 CREATE TABLE image_gallery (
     id UUID DEFAULT UUID_v4(),
@@ -64,12 +64,12 @@ CREATE TABLE video_gallery (
     segment_id UUID,
     article_id UUID,
     PRIMARY KEY (id),
-    CONSTRAINT fk_articles
+    CONSTRAINT fk_video_articles
         FOREIGN KEY(article_id)
         REFERENCES articles(id)
         ON DELETE CASCADE,
-    CONSTRAINT fk_segments
+    CONSTRAINT fk_video_segments
         FOREIGN KEY(segment_id)
         REFERENCES segments(id)
-        ON DELETE CASCADE  
+        ON DELETE CASCADE
 );
