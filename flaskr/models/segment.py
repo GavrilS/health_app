@@ -1,6 +1,9 @@
 import uuid
 
 class Segment:
+    '''
+    This class is a holder for a single article segment's attributes.
+    '''
 
     def __init__(self, *args, **kwargs):
         self._id = kwargs.get('id', str(uuid.uuid4()))
@@ -17,6 +20,9 @@ class Segment:
         return self._heading
     
     def _set_heading(self, value):
+        '''
+        Set heading only upon initialization. Heading is a required attribute!
+        '''
         if not value:
             raise Exception('Article segment heading is missing...')
         
@@ -27,6 +33,9 @@ class Segment:
         return self._description
     
     def _set_description(self, value):
+        '''
+        Set description only upon initialization. It is a required attribute!
+        '''
         if not value:
             raise Exception('Article segment description is missing...')
         
