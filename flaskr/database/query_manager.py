@@ -95,8 +95,26 @@ class QueryManager:
     
     def make_get_query(self, *args, **kwargs):
         '''
-        Builds a db get query.
+        Builds a db get query with the relevant information included in the args/kwargs parameters.
+        *args: ([where_clause_field_list], [where_clause_value_list], table_name)
         '''
+        query = None
+        try:
+            where_fields, where_values, table_name = self._parse_modify_table_args(args)
+
+            get_statement = f'SELECT * FROM {table_name} WHERE WHERE_CLAUSE_PLACEHOLDER;'
+            get_string = ''
+
+            for i in range(len(where_fields)):
+                get_string += f'{where_fields[i]} = {where_values[i]}'
+                if i < len(where_fields) - 1:
+                    get_string += ' AND '
+            
+            query = get_statement.replace('WHERE_CLAUSE_PLACEHOLDER', get_string)
+        except Exception as e:
+            print(f"Couldn't build the get query due to an error - {str(e)}")
+
+        return query
 
     def _parse_modify_table_args(self, *args):
         fields = args[0]
