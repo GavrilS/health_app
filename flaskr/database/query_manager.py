@@ -73,8 +73,25 @@ class QueryManager:
 
     def make_remove_query(self, *args, **kwargs):
         '''
-        Builds a db remove query.
+        Builds a db remove query with the relevant information included in the args/kwargs parameters.
+        *args: ([where_clause_field_list], [where_clause_value_list], table_name)
         '''
+        query = None
+        try:
+            where_clause_fields, where_clause_values, table_name = self._parse_modify_table_args(args)
+
+            remove_statement = f'DELETE FROM {table_name} WHERE WHERE_CLAUSE_PLACEHOLDER;'
+            where_clause_string = ''
+            for i in range(len(where_clause_fields)):
+                where_clause_string += f'{where_clause_fields[i]} = {where_clause_values[i]}'
+                if i < len(where_clause_fields) - 1:
+                    where_clause_string += ' AND '
+            
+            query = remove_statement.replace('WHERE_CLAUSE_PLACEHOLDER', where_clause_string)
+        except Exception as e:
+            print(f"Couldn't build the delete query due to an error - {str(e)}")
+
+        return query
     
     def make_get_query(self, *args, **kwargs):
         '''
@@ -88,5 +105,7 @@ class QueryManager:
 
         if len(fields) != len(values):
             raise Exception('Fields and values parameters do not match...')
+        elif len(fields) == 0:
+            pass # TODO implement logic when the fields/values lists are empty
 
         return fields, values, table_name
