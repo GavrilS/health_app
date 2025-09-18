@@ -1,4 +1,5 @@
 from flaskr.database.query_manager import QueryManager
+from flaskr.database.model_manager import ModelManager
 
 class OperationManager:
     '''
@@ -9,5 +10,6 @@ class OperationManager:
         - get
     '''
 
-    def __init__(self, query_manager=QueryManager()):
+    def __init__(self, query_manager=QueryManager(), model_manager=ModelManager()):
         self.query_manager = query_manager
+        self.model_manager = model_manager
