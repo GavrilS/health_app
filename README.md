@@ -6,5 +6,5 @@ A web based application providing information on nutrition, physical and mental 
 - Docker
 - Python - version 3.10 or higher
 
-# Links:
+# Links
 - Article information index repo - https://github.com/GavrilS/health_app_indices
