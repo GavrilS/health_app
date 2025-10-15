@@ -1,16 +1,18 @@
 import os
-from flask import Flask
+from flask import (
+    Flask, render_template, url_for
+)
 
 def create_app():
     app = Flask(__name__)
 
     @app.route('/')
     def index():
-        return 'Hello World!'
+        return render_template('index.html')
     
     @app.route('/nutrition')
     def show_nutrition_category():
-        return 'Nutrition'
+        return render_template('nutrition.html')
     
     @app.route('/nutrition/<article_id>')
     def show_nutrition_article(article_id):
@@ -18,7 +20,7 @@ def create_app():
     
     @app.route('/physical')
     def show_physical_category():
-        return 'Physical'
+        return render_template('physical.html')
     
     @app.route('/physical/<article_id>')
     def show_physical_article(article_id):
@@ -26,7 +28,7 @@ def create_app():
     
     @app.route('/mind')
     def show_mind_category():
-        return 'Mind'
+        return render_template('mind.html')
     
     @app.route('/mind/<article_id>')
     def show_mind_article(article_id):
