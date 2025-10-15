@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<title>{% block title %}{% endblock %} - Task List App</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+<nav>
+    <h1>Health App</h1>
+    <ul>
+        <li><a href="{{ url_for('show_nutrition_category') }}">Nutrition</a></li>
+        <li><a href="{{ url_for('show_physical_category') }}">Physical activities</a></li>
+        <li><a href="{{ url_for('show_mind_category') }}">Mental activities</a></li>
+    </ul>
+</nav>
+<section class="content">
+    <header>
+        {% block header %}{% endblock %}
+    </header>
+    {% for message in get_flashed_messages() %}
+        <div class="flash">{{ message }}</div>
+    {% endfor %}
+    {% block content %}{% endblock %}
+</section>
