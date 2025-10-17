@@ -67,46 +67,31 @@ class QueryManager:
 
         return query
 
-    def make_remove_query(self, *args, **kwargs):
+    def make_remove_query_id(self, *args, **kwargs):
         '''
         Builds a db remove query with the relevant information included in the args/kwargs parameters.
-        *args: ([where_clause_field_list], [where_clause_value_list], table_name)
+        *args: (db_model_object, db_table_name)
         '''
         query = None
         try:
-            where_clause_fields, where_clause_values, table_name = self._parse_modify_table_args(args)
+            model_obj, table_name = self._parse_modify_table_args(args)
 
-            remove_statement = f'DELETE FROM {table_name} WHERE WHERE_CLAUSE_PLACEHOLDER;'
-            where_clause_string = ''
-            for i in range(len(where_clause_fields)):
-                where_clause_string += f'{where_clause_fields[i]} = {where_clause_values[i]}'
-                if i < len(where_clause_fields) - 1:
-                    where_clause_string += ' AND '
-            
-            query = remove_statement.replace('WHERE_CLAUSE_PLACEHOLDER', where_clause_string)
+            query = f'DELETE FROM {table_name} WHERE id = {model_obj.id};'
         except Exception as e:
             print(f"Couldn't build the delete query due to an error - {str(e)}")
 
         return query
     
-    def make_get_query(self, *args, **kwargs):
+    def make_get_all_query(self, *args, **kwargs):
         '''
         Builds a db get query with the relevant information included in the args/kwargs parameters.
-        *args: ([where_clause_field_list], [where_clause_value_list], table_name)
+        *args: (db_table_name)
         '''
         query = None
         try:
-            where_fields, where_values, table_name = self._parse_modify_table_args(args)
+            table_name = args[0]
 
-            get_statement = f'SELECT * FROM {table_name} WHERE WHERE_CLAUSE_PLACEHOLDER;'
-            get_string = ''
-
-            for i in range(len(where_fields)):
-                get_string += f'{where_fields[i]} = {where_values[i]}'
-                if i < len(where_fields) - 1:
-                    get_string += ' AND '
-            
-            query = get_statement.replace('WHERE_CLAUSE_PLACEHOLDER', get_string)
+            query = f'SELECT * FROM {table_name};'
         except Exception as e:
             print(f"Couldn't build the get query due to an error - {str(e)}")
 
