@@ -16,19 +16,25 @@ class QueryManager:
     def make_insert_query(self, *args, **kwargs):
         '''
         Builds a db insert query with the relevant information included in the args parameter.
-        *args includes 2 lists - the first one is with all fields in order and the second one includes the relevant values for each one respectively. The last item in the args parameter is the name of the table we will insert into.
+        *args: (db_model_object, db_table_name)
         '''
         query = None
         try:
-            fields, values, table_name = self._parse_modify_table_args(args)
+            model_obj, table_name = self._parse_modify_table_args(args)
             
             insert_start_statement = f'INSERT INTO {table_name} (FIELDS_PLACEHOLDER) '
             insert_end_statement = 'VALUES (VALUES_PLACEHOLDER);'
             field_string = ''
             value_string = ''
-            for i in range(len(fields)):
-                field_string += fields[i]
-                value_string += values[i]
+            property_count = len(model_obj.__dict__.keys())
+            for k, v in model_obj.__dict__.items():
+                field_string += f'{k}'
+                value_string += f'{v}'
+
+                property_count -= 1
+                if property_count > 0:
+                    field_string += ', '
+                    value_string += ', '
             
             query = insert_start_statement.replace('FIELDS_PLACEHOLDER', field_string) + insert_end_statement.replace('VALUES_PLACEHOLDER', value_string)
         except Exception as e:
@@ -117,13 +123,9 @@ class QueryManager:
         return query
 
     def _parse_modify_table_args(self, *args):
-        fields = args[0]
-        values = args[1]
-        table_name = args[2]
+        if len(args) < 2:
+            raise Exception('Arguments passed to a DB modify query are insuficient... Len of arguments passed is ', len(args))
+        model_obj = args[0]
+        table_name = args[1]
 
-        if len(fields) != len(values):
-            raise Exception('Fields and values parameters do not match...')
-        elif len(fields) == 0:
-            pass # TODO implement logic when the fields/values lists are empty
-
-        return fields, values, table_name
+        return model_obj, table_name

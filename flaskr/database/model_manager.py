@@ -12,3 +12,5 @@ class ModelManager:
     '''
     This class is responsible for converting the model data into a format that can be used by the query manager class.
     '''
+
+    
