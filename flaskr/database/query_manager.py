@@ -41,37 +41,27 @@ class QueryManager:
             print(f"Couldn't build the insert query due to an error - {str(e)}")
         
         return query
-
-
-    def make_update_query(self, *args, **kwargs):
+    
+    def make_update_query_by_id(self, *args, **kwargs):
         '''
         Builds a db update query with the relevant information included in the args/kwargs parameters.
-        *args: ([field_list], [value_list], table_name, [where_clause_fields], [where_clause_values])
+        *args: (db_model_object, db_table_name)
         '''
         query = None
         try:
-            fields, values, table_name = self._parse_modify_table_args(args)
+            model_obj, table_name = self._parse_modify_table_args(args)
 
-            where_fields = args[3]
-            where_values = args[4]
-            if len(where_fields) != len(where_values):
-                raise Exception('Fields and values parameters for the WHERE clause do not match...')
-
-            update_statement = f'UPDATE {table_name} SET VALUES_PLACEHOLDER WHERE WHERE_CLAUSE_PLACEHOLDER;'
+            update_statement = f'UPDATE {table_name} SET VALUES_PLACEHOLDER WHERE id = {model_obj.id};'
             values_string = ''
-            where_clause_string = ''
-
-            for i in range(len(fields)):
-                values_string += f'{fields[i]} = {values[i]}'
-                if i < len(fields) - 1:
+            
+            property_count = len(model_obj.__dict__.keys())
+            for k, v in model_obj.__dict__.items():
+                values_string += f'{k} = {v}'
+                property_count -= 1
+                if property_count > 0:
                     values_string += ', '
             
-            for i in range(len(where_fields)):
-                where_clause_string += f'{where_fields[i]}={where_values[i]}'
-                if i < len(where_fields):
-                    where_clause_string += ' AND '
-            
-            query = update_statement.replace('VALUES_PLACEHOLDER', values_string).replace('WHERE_CLAUSE_PLACEHOLDER', where_clause_string)
+            query = update_statement.replace('VALUES_PLACEHOLDER', values_string)
         except Exception as e:
             print(f"Couldn't build the update query due to an error - {str(e)}")
 
