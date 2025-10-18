@@ -25,6 +25,7 @@ CREATE TABLE articles (
     id UUID DEFAULT UUID_v4(),
     title VARCHAR(100) NOT NULL,
     description TEXT NOT NULL,
+    category VARCHAR(20) DEFAULT 'nutrition',
     PRIMARY KEY (id)
 );
 

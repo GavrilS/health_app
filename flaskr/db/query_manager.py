@@ -82,16 +82,22 @@ class QueryManager:
 
         return query
     
-    def make_get_all_query(self, *args, **kwargs):
+    def make_get_query(self, *args, **kwargs):
         '''
         Builds a db get query with the relevant information included in the args/kwargs parameters.
+        Base *args structure:
         *args: (db_table_name)
+        Or if table is articles:
+        *args: (db_table_name, article_category)
         '''
         query = None
         try:
             table_name = args[0]
 
-            query = f'SELECT * FROM {table_name};'
+            if table_name == 'articles' and len(args) > 1:
+                query = f'SELECT * FROM {table_name} WHERE category = {args[1]}'
+            else:
+                query = f'SELECT * FROM {table_name};'
         except Exception as e:
             print(f"Couldn't build the get query due to an error - {str(e)}")
 

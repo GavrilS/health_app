@@ -2,9 +2,18 @@ import os
 from flask import (
     Flask, render_template, url_for
 )
+from db.models.article import Article
+from db.models.segment import Segment
+from db.models.user import User
+from db.operation_manager import OperationManager
+from db.query_manager import QueryManager
+
 
 def create_app():
     app = Flask(__name__)
+
+    operation_manager = OperationManager()
+    query_manager = QueryManager()
 
     @app.route('/')
     def index():
@@ -22,6 +31,10 @@ def create_app():
         - make a list of titles to display as links to separate articles
         - populate the list on the page
         '''
+        query = query_manager.make_get_all_query('articles', 'nutrition')
+        res = operation_manager.execute_query(query)
+        print('Res pre-close: ', res)
+        operation_manager.close_db_connection()
         return render_template('nutrition.html')
     
     @app.route('/nutrition/<article_id>')
