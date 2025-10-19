@@ -16,9 +16,9 @@ class OperationManager:
     def _set_db_connection(self):
         try:
             self._conn = mariadb.connect(
-                user=os.environ.get('USER', None),
-                password=os.environ.get('PASS', None),
-                host=os.environ.get('HOST', None),
+                user=os.environ.get('DB_USER', None),
+                password=os.environ.get('DB_PASS', None),
+                host=os.environ.get('DB_HOST', None),
                 database=os.environ.get('DB', None)
             )
         except Exception as e:
