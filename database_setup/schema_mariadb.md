@@ -11,6 +11,7 @@
     - id(ID) -> automatically generated
     - title(Text)** -> the main title of the article
     - description(Text)** -> a brief description of the article theme
+    - category(Text)** -> one of nutrition(default value), physical_activities and mental_activities
 
 * segment
     - id(ID) -> automatically generated

@@ -42,5 +42,5 @@ if [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]]; then
     echo "Connecting to MariaDB"
     mariadbIP="$(sudo docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' mariadb)"
     echo "The assigned IP for the container is - $mariadbIP"
-    sudo mysql -h $mariadbIP -u root -p < setup_db_v2.sql
+    sudo mysql -h $mariadbIP -u root -p < setup_db_mariadb.sql
 fi

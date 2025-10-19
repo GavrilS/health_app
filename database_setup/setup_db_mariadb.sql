@@ -4,6 +4,8 @@ CREATE DATABASE health_articles;
 
 USE health_articles;
 
+SET FOREIGN_KEY_CHECKS=0;
+
 DROP TABLE IF EXISTS users;
 
 CREATE TABLE users (
@@ -36,7 +38,12 @@ CREATE TABLE segments (
     heading VARCHAR(100) NOT NULL,
     description TEXT NOT NULL,
     segment_order TINYINT UNSIGNED,
-    PRIMARY KEY (id)
+    article_id UUID,
+    PRIMARY KEY (id),
+    CONSTRAINT fk_segment_articles
+        FOREIGN KEY(article_id)
+        REFERENCES articles(id)
+        ON DELETE CASCADE
 );
 
 DROP TABLE IF EXISTS image_gallery;
@@ -47,11 +54,11 @@ CREATE TABLE image_gallery (
     segment_id UUID,
     article_id UUID,
     PRIMARY KEY (id),
-    CONSTRAINT fk_articles
+    CONSTRAINT fk_image_articles
         FOREIGN KEY(article_id)
         REFERENCES articles(id)
         ON DELETE CASCADE,
-    CONSTRAINT fk_segments
+    CONSTRAINT fk_image_segments
         FOREIGN KEY(segment_id)
         REFERENCES segments(id)
         ON DELETE CASCADE
@@ -74,3 +81,5 @@ CREATE TABLE video_gallery (
         REFERENCES segments(id)
         ON DELETE CASCADE
 );
+
+SET FOREIGN_KEY_CHECKS=1;
