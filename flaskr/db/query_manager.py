@@ -51,7 +51,7 @@ class QueryManager:
         try:
             model_obj, table_name = self._parse_modify_table_args(args)
 
-            update_statement = f'UPDATE {table_name} SET VALUES_PLACEHOLDER WHERE id = {model_obj.id};'
+            update_statement = f'UPDATE {table_name} SET VALUES_PLACEHOLDER WHERE id = "{model_obj.id}";'
             values_string = ''
             
             property_count = len(model_obj.__dict__.keys())
@@ -76,7 +76,7 @@ class QueryManager:
         try:
             model_obj, table_name = self._parse_modify_table_args(args)
 
-            query = f'DELETE FROM {table_name} WHERE id = {model_obj.id};'
+            query = f'DELETE FROM {table_name} WHERE id = "{model_obj.id}";'
         except Exception as e:
             print(f"Couldn't build the delete query due to an error - {str(e)}")
 
@@ -95,7 +95,7 @@ class QueryManager:
             table_name = args[0]
 
             if table_name == 'articles' and len(args) > 1:
-                query = f'SELECT * FROM {table_name} WHERE category = {args[1]}'
+                query = f'SELECT * FROM {table_name} WHERE category = "{args[1]}";'
             else:
                 query = f'SELECT * FROM {table_name};'
         except Exception as e:

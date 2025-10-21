@@ -21,6 +21,7 @@ class OperationManager:
                 host=os.environ.get('DB_HOST', None),
                 database=os.environ.get('DB', None)
             )
+            print('Connected to DB')
         except Exception as e:
             print(f"Couldn't connect to the Database: {str(e)}")
             raise
@@ -39,5 +40,5 @@ class OperationManager:
     def execute_query(self, query):
         self._set_db_connection()
         cur = self._conn.cursor()
-        cur.execture()
+        cur.execute(query)
         return cur
