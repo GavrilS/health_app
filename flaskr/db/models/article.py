@@ -9,6 +9,7 @@ class Article:
         self._id = kwargs.get('id', str(uuid.uuid4()))
         self._set_title(kwargs.get('title', None))
         self._set_description(kwargs.get('description', None))
+        self._category = kwargs.get('category', 'nutrition')
 
     @property
     def id(self):
@@ -39,3 +40,7 @@ class Article:
             raise Exception('Article description must be set...')
         
         self._description = value
+
+    @property
+    def category(self):
+        return self._category
