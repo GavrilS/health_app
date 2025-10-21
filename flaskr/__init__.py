@@ -33,15 +33,24 @@ def create_app():
         '''
         nutrition_articles = []
         if request.method == 'POST':
-            pass
-        else:
-            query = query_manager.make_get_query('articles', 'nutrition')
+            article = Article(
+                title=request.form.get('title', None),
+                description=request.form.get('description', None),
+                category=request.form.get('category')
+            )
+
+            query = query_manager.make_insert_query(article, 'articles')
+            print('Query: ', query)
             res = operation_manager.execute_query(query)
-            operation_manager.close_db_connection()
-            for item in res:
-                # TODO add error handling when building articles
-                article = Article(id=item[0], title=item[1], description=item[2], category=item[3])
-                nutrition_articles.append(article)
+            print('DB response: ', res)
+        
+        query = query_manager.make_get_query('articles', 'nutrition')
+        res = operation_manager.execute_query(query)
+        operation_manager.close_db_connection()
+        for item in res:
+            # TODO add error handling when building articles
+            article = Article(id=item[0], title=item[1], description=item[2], category=item[3])
+            nutrition_articles.append(article)
         
         # print('Nutrition articles: ', nutrition_articles)
         return render_template('nutrition.html', articles=nutrition_articles)
