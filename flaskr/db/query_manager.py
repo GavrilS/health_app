@@ -29,7 +29,7 @@ class QueryManager:
             property_count = len(model_obj.__dict__.keys())
             for k, v in model_obj.__dict__.items():
                 field_string += f'{k}'
-                value_string += f'{v}'
+                value_string += f'"{v}"'
 
                 property_count -= 1
                 if property_count > 0:

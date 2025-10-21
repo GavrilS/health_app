@@ -1,6 +1,6 @@
 import os
 from flask import (
-    Flask, render_template, url_for
+    Flask, render_template, url_for, request
 )
 from flaskr.db.models.article import Article
 from flaskr.db.models.segment import Segment
@@ -23,7 +23,7 @@ def create_app():
         '''
         return render_template('index.html')
     
-    @app.route('/nutrition')
+    @app.route('/nutrition', methods=('GET', 'POST'))
     def show_nutrition_category():
         '''
         Load the nutrition category page:
@@ -31,20 +31,20 @@ def create_app():
         - make a list of titles to display as links to separate articles
         - populate the list on the page
         '''
-        query = query_manager.make_get_query('articles', 'nutrition')
-        print('*'*80)
-        print('Nutrition get query: ', query)
-        print('*'*80)
-        res = operation_manager.execute_query(query)
-        operation_manager.close_db_connection()
         nutrition_articles = []
-        for item in res:
-            # TODO add error handling when building articles
-            article = Article(id=item[0], title=item[1], description=item[2], category=item[3])
-            nutrition_articles.append(article)
+        if request.method == 'POST':
+            pass
+        else:
+            query = query_manager.make_get_query('articles', 'nutrition')
+            res = operation_manager.execute_query(query)
+            operation_manager.close_db_connection()
+            for item in res:
+                # TODO add error handling when building articles
+                article = Article(id=item[0], title=item[1], description=item[2], category=item[3])
+                nutrition_articles.append(article)
         
-        print('Nutrition articles: ', nutrition_articles)
-        return render_template('nutrition.html')
+        # print('Nutrition articles: ', nutrition_articles)
+        return render_template('nutrition.html', articles=nutrition_articles)
     
     @app.route('/nutrition/<article_id>')
     def show_nutrition_article(article_id):
