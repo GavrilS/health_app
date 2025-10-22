@@ -13,7 +13,7 @@ class OperationManager:
     def __init__(self):
         self._conn = None
     
-    def _set_db_connection(self):
+    def set_db_connection(self):
         try:
             self._conn = mariadb.connect(
                 user=os.environ.get('DB_USER', None),
@@ -38,7 +38,6 @@ class OperationManager:
             raise
 
     def execute_query(self, query):
-        self._set_db_connection()
         cur = self._conn.cursor()
         cur.execute(query)
         return cur

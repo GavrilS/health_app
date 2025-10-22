@@ -32,6 +32,8 @@ def create_app():
         - populate the list on the page
         '''
         nutrition_articles = []
+        operation_manager.set_db_connection()
+
         if request.method == 'POST':
             article = Article(
                 title=request.form.get('title', None),
@@ -55,13 +57,59 @@ def create_app():
         # print('Nutrition articles: ', nutrition_articles)
         return render_template('nutrition.html', articles=nutrition_articles)
     
-    @app.route('/nutrition/<article_id>')
+    @app.route('/nutrition/<article_id>', methods=('GET', 'PUT', 'DELETE'))
     def show_nutrition_article(article_id):
         '''
         Load the respective nutrition article page:
-        - no extra data needs to be loaded
+        - display the nutrition article
+        - keep a reference to the list of nutrition articles
         '''
-        return f'Opening nutrition article with id {article_id}'
+        articles = []
+        data = {
+            'articles': articles
+        }
+        operation_manager.set_db_connection()
+
+        if request.method == 'PUT':
+            article = Article(
+                id=request.form['id'],
+                title=request.form['title'],
+                description=request.form['description'],
+                category=request.form['category']
+            )
+
+            query = query_manager.make_update_query_by_id(article, 'articles')
+            print('Query: ', query)
+            res = operation_manager.execute_query(query)
+            print('DB response: ', res)
+
+        elif request.method == 'DELETE':
+            article = Article(
+                id=request.form['id'],
+                title=request.form['title'],
+                description=request.form['description'],
+                category=request.form['category']
+            )
+
+            query = query_manager.make_remove_query_id(article, 'articles')
+            print('Query: ', query)
+            res = operation_manager.execute_query(query)
+            print('DB response: ', res)
+
+            return url_for('/nutrition')
+        
+        query = query_manager.make_get_query('articles', 'nutrition')
+        res = operation_manager.execute_query(query)
+        operation_manager.close_db_connection()
+        for item in res:
+            # TODO add error handling when building articles
+            article = Article(id=item[0], title=item[1], description=item[2], category=item[3])
+            if article.id == article_id:
+                data['current_article'] = article
+            else:
+                articles.append(article)
+
+        return render_template('nutrition_article.html', data=data)
     
     @app.route('/physical_activities', methods=('GET', 'POST'))
     def show_physical_category():
@@ -72,12 +120,13 @@ def create_app():
         - populate the list on the page
         '''
         physical_activity_articles = []
+        operation_manager.set_db_connection()
 
         if request.method == 'POST':
             article = Article(
                 title=request.form.get('title', None),
                 description=request.form.get('description', None),
-                category=request.form.get('category', 'physical')
+                category=request.form.get('category', 'physical_activity')
             )
 
             query = query_manager.make_insert_query(article, 'articles')
@@ -85,7 +134,7 @@ def create_app():
             res = operation_manager.execute_query(query)
             print('DB response: ', res)
         
-        query = query_manager.make_get_query('articles', 'physical')
+        query = query_manager.make_get_query('articles', 'physical_activity')
         res = operation_manager.execute_query(query)
         operation_manager.close_db_connection()
         for item in res:
@@ -100,9 +149,55 @@ def create_app():
     def show_physical_article(article_id):
         '''
         Load the respective physical activities article page:
-        - no extra data needs to be loaded
+        - load the article
+        - make a list of available physical activities articles
         '''
-        return f'Opening physical article with id {article_id}'
+        articles = []
+        data = {
+            'articles': articles
+        }
+        operation_manager.set_db_connection()
+
+        if request.method == 'PUT':
+            article = Article(
+                id=request.form['id'],
+                title=request.form['title'],
+                description=request.form['description'],
+                category=request.form['category']
+            )
+
+            query = query_manager.make_update_query_by_id(article, 'articles')
+            print('Query: ', query)
+            res = operation_manager.execute_query(query)
+            print('DB response: ', res)
+
+        elif request.method == 'DELETE':
+            article = Article(
+                id=request.form['id'],
+                title=request.form['title'],
+                description=request.form['description'],
+                category=request.form['category']
+            )
+
+            query = query_manager.make_remove_query_id(article, 'articles')
+            print('Query: ', query)
+            res = operation_manager.execute_query(query)
+            print('DB response: ', res)
+
+            return url_for('/physical_activities')
+        
+        query = query_manager.make_get_query('articles', 'physical_activity')
+        res = operation_manager.execute_query(query)
+        operation_manager.close_db_connection()
+        for item in res:
+            # TODO add error handling when building articles
+            article = Article(id=item[0], title=item[1], description=item[2], category=item[3])
+            if article.id == article_id:
+                data['current_article'] = article
+            else:
+                articles.append(article)
+
+        return render_template('physical_activities_article.html', data=data)
     
     @app.route('/mental_activities')
     def show_mind_category():
@@ -113,6 +208,7 @@ def create_app():
         - populate the list on the page
         '''
         mental_activity_articles = []
+        operation_manager.set_db_connection()
 
         if request.method == 'POST':
             article = Article(
@@ -126,7 +222,7 @@ def create_app():
             res = operation_manager.execute_query(query)
             print('DB response: ', res)
         
-        query = query_manager.make_get_query('articles', 'mental')
+        query = query_manager.make_get_query('articles', 'mental_activities')
         res = operation_manager.execute_query(query)
         operation_manager.close_db_connection()
         for item in res:
@@ -141,8 +237,54 @@ def create_app():
     def show_mind_article(article_id):
         '''
         Load the respective mental activities article page:
-        - no extra data needs to be loaded
+        - load the mental activities article
+        - make a list of available mental activity articles
         '''
-        return f'Opening mind article with id {article_id}'
+        articles = []
+        data = {
+            'articles': articles
+        }
+        operation_manager.set_db_connection()
+
+        if request.method == 'PUT':
+            article = Article(
+                id=request.form['id'],
+                title=request.form['title'],
+                description=request.form['description'],
+                category=request.form['category']
+            )
+
+            query = query_manager.make_update_query_by_id(article, 'articles')
+            print('Query: ', query)
+            res = operation_manager.execute_query(query)
+            print('DB response: ', res)
+
+        elif request.method == 'DELETE':
+            article = Article(
+                id=request.form['id'],
+                title=request.form['title'],
+                description=request.form['description'],
+                category=request.form['category']
+            )
+
+            query = query_manager.make_remove_query_id(article, 'articles')
+            print('Query: ', query)
+            res = operation_manager.execute_query(query)
+            print('DB response: ', res)
+
+            return url_for('/mental_activities')
+        
+        query = query_manager.make_get_query('articles', 'mental_activity')
+        res = operation_manager.execute_query(query)
+        operation_manager.close_db_connection()
+        for item in res:
+            # TODO add error handling when building articles
+            article = Article(id=item[0], title=item[1], description=item[2], category=item[3])
+            if article.id == article_id:
+                data['current_article'] = article
+            else:
+                articles.append(article)
+
+        return render_template('mental_activities_article.html', data=data)
 
     return app
