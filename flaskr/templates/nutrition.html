@@ -7,7 +7,7 @@
 
     <div>
         {% for article in articles %}
-            <a href="{{ url_for('show_nutrition_article', article_id=article.id) }}">article.title</a>
+            <a href="{{ url_for('show_nutrition_article', article_id=article.id) }}">{{ article.title }}</a>
         {% endfor %}
     </div>
 
