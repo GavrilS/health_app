@@ -43,7 +43,7 @@ def create_app():
             print('Query: ', query)
             res = operation_manager.execute_query(query)
             print('DB response: ', res)
-        
+
         query = query_manager.make_get_query('articles', 'nutrition')
         res = operation_manager.execute_query(query)
         operation_manager.close_db_connection()
@@ -63,7 +63,7 @@ def create_app():
         '''
         return f'Opening nutrition article with id {article_id}'
     
-    @app.route('/physical')
+    @app.route('/physical', methods=('GET', 'POST'))
     def show_physical_category():
         '''
         Load the physical activities category page:
@@ -71,6 +71,31 @@ def create_app():
         - make a list of titles to display as links to separate articles
         - populate the list on the page
         '''
+        physical_activity_articles = []
+
+        if request.method == 'POST':
+            article = Article(
+                title=request.form.get('title', None),
+                description=request.form.get('description', None),
+                category=request.form.get('category', 'physical')
+            )
+
+            query = query_manager.make_insert_query(article, 'articles')
+            print('Query: ', query)
+            res = operation_manager.execute_query(query)
+            print('DB response: ', res)
+        
+        query = query_manager.make_get_query('articles', 'physical')
+        res = operation_manager.execute_query(query)
+        operation_manager.close_db_connection()
+        for item in res:
+            # TODO add error handling when building articles
+            article = Article(id=item[0], title=item[1], description=item[2], category=item[3])
+            physical_activity_articles.append(article)
+        
+        # print('Physical activity articles: ', physical_activity_articles)
+        return render_template('nutrition.html', articles=physical_activity_articles)
+    
         return render_template('physical.html')
     
     @app.route('/physical/<article_id>')
