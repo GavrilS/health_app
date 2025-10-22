@@ -1,1 +1,14 @@
 {% extends 'base.html' %}
+
+{% block content %}
+
+    <h1>Nutrition section</h1>
+    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Animi optio, nihil rem maxime quod molestiae debitis tenetur vitae perferendis quos inventore recusandae aspernatur accusantium, sunt aperiam at nostrum blanditiis maiores. Fuga, neque magnam voluptatum quis natus accusamus dolor voluptate illo, ut libero deserunt beatae cum vitae est sit quod ab!</p>
+
+    <div>
+        {% for article in articles %}
+            <a href="{{ url_for('show_nutrition_article', article_id=article.id) }}">article.title</a>
+        {% endfor %}
+    </div>
+
+{% endblock %}

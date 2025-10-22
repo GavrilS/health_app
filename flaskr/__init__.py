@@ -96,7 +96,7 @@ def create_app():
             res = operation_manager.execute_query(query)
             print('DB response: ', res)
 
-            return url_for('/nutrition')
+            return url_for('show_nutrition_category')
         
         query = query_manager.make_get_query('articles', 'nutrition')
         res = operation_manager.execute_query(query)
@@ -109,7 +109,7 @@ def create_app():
             else:
                 articles.append(article)
 
-        return render_template('nutrition_article.html', data=data)
+        return render_template('article.html', data=data)
     
     @app.route('/physical_activities', methods=('GET', 'POST'))
     def show_physical_category():
@@ -184,7 +184,7 @@ def create_app():
             res = operation_manager.execute_query(query)
             print('DB response: ', res)
 
-            return url_for('/physical_activities')
+            return url_for('show_physical_category')
         
         query = query_manager.make_get_query('articles', 'physical_activity')
         res = operation_manager.execute_query(query)
@@ -197,7 +197,7 @@ def create_app():
             else:
                 articles.append(article)
 
-        return render_template('physical_activities_article.html', data=data)
+        return render_template('article.html', data=data)
     
     @app.route('/mental_activities')
     def show_mind_category():
@@ -272,7 +272,7 @@ def create_app():
             res = operation_manager.execute_query(query)
             print('DB response: ', res)
 
-            return url_for('/mental_activities')
+            return url_for('show_mind_category')
         
         query = query_manager.make_get_query('articles', 'mental_activity')
         res = operation_manager.execute_query(query)
@@ -285,6 +285,6 @@ def create_app():
             else:
                 articles.append(article)
 
-        return render_template('mental_activities_article.html', data=data)
+        return render_template('article.html', data=data)
 
     return app
