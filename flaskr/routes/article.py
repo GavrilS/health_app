@@ -8,10 +8,19 @@ This file holds the article related routes functionalities:
 '''
 
 from flask import (
-    Blueprint, render_template, url_for
+    Blueprint, render_template, url_for, request
 )
 
 article = Blueprint('article', __name__, template_folder='templates/articles')
+
+from flaskr.db.models.article import Article
+from flaskr.db.models.segment import Segment
+from flaskr.db.models.user import User
+from flaskr.db.operation_manager import OperationManager
+from flaskr.db.query_manager import QueryManager
+
+operation_manager = OperationManager()
+query_manager = QueryManager()
 
 
 @article.route('/article/<category>', methods=('GET', 'POST'))
@@ -25,3 +34,37 @@ def show_articles_by_category(category):
     <category>:
         - one of nutrition, physical_activity, mental_activity
     '''
+    articles = []
+    operation_manager.set_db_connection()
+    data = {
+        'articles': articles,
+        'category': category
+    }
+
+    if request.method == 'POST':
+        article = Article(
+            title=request.form.get('title', None),
+            description=request.form.get('description', None),
+            category=request.form.get('category', category)
+        )
+
+        query = query_manager.make_insert_query(article, 'articles')
+        print('Query: ', query)
+        res = operation_manager.execute_query(query)
+        print('DB response: ', res)
+
+    query = query_manager.make_get_query('articles', category)
+    res = operation_manager.execute_query(query)
+    operation_manager.close_db_connection()
+    for item in res:
+        # TODO add error handling when building articles
+        article = Article(id=item[0], title=item[1], description=item[2], category=item[3])
+        articles.append(article)
+    
+    # print('Articles: ', articles)
+    return render_template('category.html', data=data)
+
+
+@article.route('/article/<category>/<article_id>', methods=('GET', 'PUT', 'DELETE'))
+def open_article(category, article_id):
+    pass

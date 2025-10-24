@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    {% if "nutrition" in data.category %}
+        <h1>Nutrition section</h1>
+        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Animi optio, nihil rem maxime quod molestiae debitis tenetur vitae perferendis quos inventore recusandae aspernatur accusantium, sunt aperiam at nostrum blanditiis maiores. Fuga, neque magnam voluptatum quis natus accusamus dolor voluptate illo, ut libero deserunt beatae cum vitae est sit quod ab!</p>
+    {% elif "physical" in data.category %}
+        <h1>Physical activities section</h1>
+        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Animi optio, nihil rem maxime quod molestiae debitis tenetur vitae perferendis quos inventore recusandae aspernatur accusantium, sunt aperiam at nostrum blanditiis maiores. Fuga, neque magnam voluptatum quis natus accusamus dolor voluptate illo, ut libero deserunt beatae cum vitae est sit quod ab!</p>
+    {% else %}
+        <h1>Mental activities section</h1>
+        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Animi optio, nihil rem maxime quod molestiae debitis tenetur vitae perferendis quos inventore recusandae aspernatur accusantium, sunt aperiam at nostrum blanditiis maiores. Fuga, neque magnam voluptatum quis natus accusamus dolor voluptate illo, ut libero deserunt beatae cum vitae est sit quod ab!</p>
+    {% endif %}
+
+    <div>
+        {% for article in data.articles %}
+            <a href="{{ url_for('open_article', category=data.category, article_id=article.id) }}">{{ article.title }}</a>
+        {% endfor %}
+    </div>
+
+{% endblock %}
