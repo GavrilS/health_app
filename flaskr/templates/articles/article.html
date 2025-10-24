@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <h1>{% data.current_article.title %}</h1>
+
+    <div>
+        <p>{% data.current_article.description %}</p>
+    </div>
+
+    <div>
+        <form action="{{ url_for('open_article', category=data.current_article.category, article_id=data.current_article.id) }}" method="delete">
+            <input type="submit" value="Delete the article">
+        </form>
+    </div>
+
+    {% for article in data.articles %}
+        <a href="{{ url_for('open_article', category=data.category, article_id=article.id) }}">{{ article.title }}</a>
+    {% endfor %}
+
+{% endblock %}
