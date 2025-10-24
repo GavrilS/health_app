@@ -14,14 +14,6 @@ def create_app():
 
     operation_manager = OperationManager()
     query_manager = QueryManager()
-
-    @app.route('/')
-    def index():
-        '''
-        Load the home page:
-        - no data needs to be passed
-        '''
-        return render_template('index.html')
     
     @app.route('/nutrition', methods=('GET', 'POST'))
     def show_nutrition_category():
