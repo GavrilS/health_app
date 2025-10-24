@@ -67,4 +67,54 @@ def show_articles_by_category(category):
 
 @article.route('/article/<category>/<article_id>', methods=('GET', 'PUT', 'DELETE'))
 def open_article(category, article_id):
-    pass
+    '''
+    Load the respective article page:
+    - display the article content
+    - keep a reference to the list of articles of the same category
+    '''
+    articles = []
+    data = {
+        'articles': articles
+    }
+    operation_manager.set_db_connection()
+
+    if request.method == 'PUT':
+        article = Article(
+            id=article_id,
+            title=request.form['title'],
+            description=request.form['description'],
+            category=category
+        )
+
+        query = query_manager.make_update_query_by_id(article, 'articles')
+        print('Query: ', query)
+        res = operation_manager.execute_query(query)
+        print('DB response: ', res)
+
+    elif request.method == 'DELETE':
+        article = Article(
+            id=article_id,
+            title=request.form['title'],
+            description=request.form['description'],
+            category=category
+        )
+
+        query = query_manager.make_remove_query_id(article, 'articles')
+        print('Query: ', query)
+        res = operation_manager.execute_query(query)
+        print('DB response: ', res)
+
+        return url_for('show_articles_by_category', category=category)
+    
+    query = query_manager.make_get_query('articles', category)
+    res = operation_manager.execute_query(query)
+    operation_manager.close_db_connection()
+    for item in res:
+        # TODO add error handling when building articles
+        article = Article(id=item[0], title=item[1], description=item[2], category=item[3])
+        if article.id == article_id:
+            data['current_article'] = article
+        else:
+            articles.append(article)
+
+    return render_template('article.html', data=data)
