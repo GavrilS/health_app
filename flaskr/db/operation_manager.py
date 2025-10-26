@@ -40,4 +40,5 @@ class OperationManager:
     def execute_query(self, query):
         cur = self._conn.cursor()
         cur.execute(query)
+        self._conn.commit()
         return cur
