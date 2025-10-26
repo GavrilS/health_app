@@ -98,9 +98,10 @@ def open_article(category, article_id):
             print(4)
         elif request.form.get('_method') == 'DELETE':
             print('Deleting an article')
+            print('Form: ', request.form)
             article = Article(
                 id=article_id,
-                title=request.form['title'],
+                title=request.form.get['title'],
                 description=request.form['description'],
                 category=category
             )
