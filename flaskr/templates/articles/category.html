@@ -15,9 +15,9 @@
 
     <div>
         <form action="{{ url_for('article.show_articles_by_category', category=data.category) }}" method="post" >
-            <input type="text" placeholder="Article title" id="title">
+            <input type="text" name="title" placeholder="Article title" id="title"/>
             <textarea name="description" id="description" placeholder="Article body"></textarea>
-            <input type="text" id="category" value="{{ data.category }}">
+            <input type="text" name="category" id="category" value="{{ data.category }}"/>
             <input type="submit" value="Submit">
         </form>
     </div>
