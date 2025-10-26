@@ -20,7 +20,7 @@ class QueryManager:
         '''
         query = None
         try:
-            model_obj, table_name = self._parse_modify_table_args(args)
+            model_obj, table_name = self._parse_modify_table_args(*args)
             
             insert_start_statement = f'INSERT INTO {table_name} (FIELDS_PLACEHOLDER) '
             insert_end_statement = 'VALUES (VALUES_PLACEHOLDER);'
@@ -28,7 +28,7 @@ class QueryManager:
             value_string = ''
             property_count = len(model_obj.__dict__.keys())
             for k, v in model_obj.__dict__.items():
-                field_string += f'{k}'
+                field_string += k.replace('_', '')
                 value_string += f'"{v}"'
 
                 property_count -= 1
@@ -40,6 +40,7 @@ class QueryManager:
         except Exception as e:
             print(f"Couldn't build the insert query due to an error - {str(e)}")
         
+        print('Final query: ', query)
         return query
     
     def make_update_query_by_id(self, *args, **kwargs):
