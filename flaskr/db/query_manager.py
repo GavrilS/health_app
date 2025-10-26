@@ -50,14 +50,14 @@ class QueryManager:
         '''
         query = None
         try:
-            model_obj, table_name = self._parse_modify_table_args(args)
+            model_obj, table_name = self._parse_modify_table_args(*args)
 
             update_statement = f'UPDATE {table_name} SET VALUES_PLACEHOLDER WHERE id = "{model_obj.id}";'
             values_string = ''
             
             property_count = len(model_obj.__dict__.keys())
             for k, v in model_obj.__dict__.items():
-                values_string += f'{k} = {v}'
+                values_string += f"{k.replace('_', '')} = {v}"
                 property_count -= 1
                 if property_count > 0:
                     values_string += ', '
@@ -75,7 +75,7 @@ class QueryManager:
         '''
         query = None
         try:
-            model_obj, table_name = self._parse_modify_table_args(args)
+            model_obj, table_name = self._parse_modify_table_args(*args)
 
             query = f'DELETE FROM {table_name} WHERE id = "{model_obj.id}";'
         except Exception as e:
