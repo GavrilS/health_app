@@ -62,7 +62,7 @@ def show_articles_by_category(category):
         articles.append(article)
     
     # print('Articles: ', articles)
-    return render_template('category.html', data=data)
+    return render_template('articles/category.html', data=data)
 
 
 @article.route('/article/<category>/<article_id>', methods=('GET', 'PUT', 'DELETE'))
@@ -104,7 +104,7 @@ def open_article(category, article_id):
         res = operation_manager.execute_query(query)
         print('DB response: ', res)
 
-        return url_for('show_articles_by_category', category=category)
+        return url_for('article.show_articles_by_category', category=category)
     
     query = query_manager.make_get_query('articles', category)
     res = operation_manager.execute_query(query)
@@ -117,4 +117,4 @@ def open_article(category, article_id):
         else:
             articles.append(article)
 
-    return render_template('article.html', data=data)
+    return render_template('articles/article.html', data=data)

@@ -9,7 +9,7 @@
     </div>
 
     <div>
-        <form action="{{ url_for('open_article', category=data.current_article.category, article_id=data.current_article.id) }}" method="put" >
+        <form action="{{ url_for('article.open_article', category=data.current_article.category, article_id=data.current_article.id) }}" method="put" >
             <input type="text" placeholder="Article title" id="title">
             <textarea name="description" id="description" placeholder="Article body"></textarea>
             <input type="text" id="category" value="{{ data.current_article.category }}">
@@ -18,13 +18,13 @@
     </div>
 
     <div>
-        <form action="{{ url_for('open_article', category=data.current_article.category, article_id=data.current_article.id) }}" method="delete">
+        <form action="{{ url_for('article.open_article', category=data.current_article.category, article_id=data.current_article.id) }}" method="delete">
             <input type="submit" value="Delete the article">
         </form>
     </div>
 
     {% for article in data.articles %}
-        <a href="{{ url_for('open_article', category=data.category, article_id=article.id) }}">{{ article.title }}</a>
+        <a href="{{ url_for('article.open_article', category=data.category, article_id=article.id) }}">{{ article.title }}</a>
     {% endfor %}
 
 {% endblock %}
