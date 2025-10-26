@@ -65,7 +65,7 @@ def show_articles_by_category(category):
     return render_template('articles/category.html', data=data)
 
 
-@article.route('/article/<category>/<article_id>', methods=('GET', 'PUT', 'DELETE'))
+@article.route('/article/<category>/<article_id>', methods=('GET', 'POST'))
 def open_article(category, article_id):
     '''
     Load the respective article page:
@@ -78,37 +78,46 @@ def open_article(category, article_id):
     }
     operation_manager.set_db_connection()
 
-    if request.method == 'PUT':
-        article = Article(
-            id=article_id,
-            title=request.form['title'],
-            description=request.form['description'],
-            category=category
-        )
+    print(1)
 
-        query = query_manager.make_update_query_by_id(article, 'articles')
-        print('Query: ', query)
-        res = operation_manager.execute_query(query)
-        print('DB response: ', res)
-
-    elif request.method == 'DELETE':
-        article = Article(
-            id=article_id,
-            title=request.form['title'],
-            description=request.form['description'],
-            category=category
-        )
-
-        query = query_manager.make_remove_query_id(article, 'articles')
-        print('Query: ', query)
-        res = operation_manager.execute_query(query)
-        print('DB response: ', res)
-
-        return url_for('article.show_articles_by_category', category=category)
+    if request.method == 'POST':
+        print(2)
+        if request.form.get('_method', '') == 'PUT':
+            print('Updating an article')
+            article = Article(
+                id=article_id,
+                title=request.form['title'],
+                description=request.form['description'],
+                category=category
+            )
+            print(3)
+            query = query_manager.make_update_query_by_id(article, 'articles')
+            print('Query: ', query)
+            res = operation_manager.execute_query(query)
+            print('DB response: ', res)
+            print(4)
+        elif request.form.get('_method') == 'DELETE':
+            print('Deleting an article')
+            article = Article(
+                id=article_id,
+                title=request.form['title'],
+                description=request.form['description'],
+                category=category
+            )
+            print(5)
+            query = query_manager.make_remove_query_id(article, 'articles')
+            print('Query: ', query)
+            res = operation_manager.execute_query(query)
+            print('DB response: ', res)
+            print(6)
+            return url_for('article.show_articles_by_category', category=category)
     
+    print('Getting an article')
     query = query_manager.make_get_query('articles', category)
     res = operation_manager.execute_query(query)
+    print(7)
     operation_manager.close_db_connection()
+    print(8)
     for item in res:
         # TODO add error handling when building articles
         article = Article(id=item[0], title=item[1], description=item[2], category=item[3])
@@ -116,5 +125,5 @@ def open_article(category, article_id):
             data['current_article'] = article
         else:
             articles.append(article)
-
+    print(9)
     return render_template('articles/article.html', data=data)

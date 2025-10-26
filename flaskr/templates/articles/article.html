@@ -9,17 +9,19 @@
     </div>
 
     <div>
-        <form action="{{ url_for('article.open_article', category=data.current_article.category, article_id=data.current_article.id) }}" method="put" >
-            <input type="text" placeholder="Article title" id="title">
+        <form action="{{ url_for('article.open_article', category=data.current_article.category, article_id=data.current_article.id) }}" method="post" >
+            <input type="hidden" name="_method" value="PUT"/>
+            <input type="text" placeholder="Article title" id="title" name="title"/>
             <textarea name="description" id="description" placeholder="Article body"></textarea>
-            <input type="text" id="category" value="{{ data.current_article.category }}">
-            <input type="submit" value="Submit">
+            <input type="text" id="category" value="{{ data.current_article.category }}" name="category"/>
+            <input type="submit" value="Submit"/>
         </form>
     </div>
 
     <div>
-        <form action="{{ url_for('article.open_article', category=data.current_article.category, article_id=data.current_article.id) }}" method="delete">
-            <input type="submit" value="Delete the article">
+        <form action="{{ url_for('article.open_article', category=data.current_article.category, article_id=data.current_article.id) }}" method="post">
+            <input type="hidden" name="_method" value="DELETE"/>
+            <input type="submit" value="Delete the article"/>
         </form>
     </div>
 
