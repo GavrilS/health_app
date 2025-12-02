@@ -8,5 +8,11 @@ nav {
     border: 1px solid black;
     padding: 1em;
     background-color: darkgray;
-    
+    display: flex;
+    flex-wrap: wrap;
+}
+
+nav > a {
+    flex: auto;
+    padding-left:5em;
 }
