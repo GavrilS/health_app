@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 
 <nav>
-    <h1>Health App</h1>
+    <a href="{{ url_for('home.index') }}"><h3>Health App</h3></a>
     <ul>
         <li><a href="{{ url_for('article.show_articles_by_category', category='nutrition') }}">Nutrition</a></li>
         <li><a href="{{ url_for('article.show_articles_by_category', category='physical_acitvity') }}">Physical activities</a></li>
