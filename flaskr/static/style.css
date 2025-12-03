@@ -1,18 +1,36 @@
 body {
     font: 1.2em / 1.5 sans-serif;
     padding: 1em;
-    background-color: antiquewhite;
+    background-color: 	#b8bbc0;
 }
 
 nav {
-    border: 1px solid black;
+    border: 1px solid;
+    /* border-radius: 0.1em; */
     padding: 1em;
-    background-color: darkgray;
+    background-color: #404040;
     display: flex;
     flex-wrap: wrap;
+    gap: 0.2em;
 }
 
 nav > a {
     flex: auto;
-    padding-left:5em;
+    margin: 0.1em;
+    padding: 10px;
+    background-color: lightgrey;
+    text-align: center;
+    text-decoration: none;
+}
+
+nav > a:link {
+    color: 	#5f4c4c;
+}
+
+nav > a:visited {
+    color: 	#4c3c3c;
+}
+
+nav > a:hover {
+    color: lightgoldenrodyellow;
 }
