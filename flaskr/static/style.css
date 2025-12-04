@@ -1,11 +1,20 @@
 body {
     font: 1.2em / 1.5 sans-serif;
-    padding: 1em;
-    background-color: 	#b8bbc0;
+    /* padding: 1em; */
+    background-color: 	black;
+    color: white;
+}
+
+a {
+    color: rgb(109, 158, 237);
+}
+
+a:visited {
+    color: rgb(232, 85, 232);
 }
 
 nav {
-    border: 1px solid;
+    border: 1px solid black;
     /* border-radius: 0.1em; */
     padding: 1em;
     background-color: #404040;
@@ -18,13 +27,15 @@ nav > a {
     flex: auto;
     margin: 0.1em;
     padding: 10px;
-    background-color: lightgrey;
+    background-color: palegoldenrod;
     text-align: center;
     text-decoration: none;
+    border-radius: 10px;
+    opacity: 0.7;
 }
 
 nav > a:link {
-    color: 	#5f4c4c;
+    color: rgb(109, 158, 237);
 }
 
 nav > a:visited {
@@ -32,5 +43,6 @@ nav > a:visited {
 }
 
 nav > a:hover {
-    color: lightgoldenrodyellow;
+    color: blue;
+    opacity: 1;
 }
