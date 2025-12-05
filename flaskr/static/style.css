@@ -48,8 +48,39 @@ nav > a:hover {
 }
 
 .category-box {
+    margin-top: 1em;
     display: flex;
     flex-wrap: wrap;
     gap: 0.2em;
     flex-direction: row;
+}
+
+.category-list {
+    flex: 1;
+    margin: 0.5em;
+}
+
+.category-item {
+    text-align: center;
+}
+
+.category-item > a {
+    text-decoration: none;
+    color: white;
+}
+
+.category-item > a:hover {
+    text-decoration: underline;
+}
+
+.category-item > a:visited {
+    color: white;
+}
+
+.category-overview {
+    flex: 2;
+}
+
+.category-options {
+    flex: 1;
 }

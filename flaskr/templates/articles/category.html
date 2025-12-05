@@ -6,7 +6,7 @@
 
         <div class="category-list">
             {% for article in data.articles %}
-                <a href="{{ url_for('article.open_article', category=data.category, article_id=article.id) }}">{{ article.title }}</a>
+                <p class="category-item"><a href="{{ url_for('article.open_article', category=data.category, article_id=article.id) }}">{{ article.title }}</a></p>
             {% endfor %}
         </div>
 
