@@ -78,9 +78,13 @@ nav > a:hover {
 }
 
 .category-overview {
-    flex: 2;
+    flex: 3;
 }
 
 .category-options {
-    flex: 1;
+    flex: 2;
+}
+
+.category-options > input, textarea {
+    width: 100%;
 }
