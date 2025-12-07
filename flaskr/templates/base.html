@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <title>{% block title %}{% endblock %} - Task List App</title>
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<script src="{{ url_for('static', filename='app.js' )}}" defer></script>
 
 <nav>
     <a href="{{ url_for('home.index') }}">Health App</a>

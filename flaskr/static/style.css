@@ -85,6 +85,7 @@ nav > a:hover {
 .category-options {
     flex: 1;
     margin: 0.5em;
+    text-align: center;
 }
 
 .add-title, .add-description, .add-category {
@@ -97,4 +98,18 @@ nav > a:hover {
 
 .create-article {
     display: none;
+}
+
+.new-article {
+    background-color: #04AA6D;
+    width: 100%;
+    color: white;
+    padding: 0.7em;
+    font-size: 0.8em;
+    border: none;
+    border-radius: 0.8em;
+}
+
+.new-article:hover {
+    background-color: #07e191;
 }
