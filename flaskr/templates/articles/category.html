@@ -21,16 +21,16 @@
                 <h1>Mental activities section</h1>
                 <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Animi optio, nihil rem maxime quod molestiae debitis tenetur vitae perferendis quos inventore recusandae aspernatur accusantium, sunt aperiam at nostrum blanditiis maiores. Fuga, neque magnam voluptatum quis natus accusamus dolor voluptate illo, ut libero deserunt beatae cum vitae est sit quod ab!</p>
             {% endif %}
+            <form class="create-article" action="{{ url_for('article.show_articles_by_category', category=data.category) }}" method="post" >
+                <p><input class="add-title" type="text" name="title" placeholder="Article title" id="title" /></p>
+                <p><textarea class="add-description" name="description" id="description" placeholder="Article body" rows="10" cols="50"></textarea></p>
+                <p><input class="add-category" type="text" name="category" id="category" value="{{ data.category }}"/></p>
+                <p><input class="add-article" type="submit" value="Submit"></p>
+            </form>
         </div>
 
         <div class="category-options">
-            <h4>Create a new article</h4>
-            <form action="{{ url_for('article.show_articles_by_category', category=data.category) }}" method="post" >
-                <p><input type="text" name="title" placeholder="Article title" id="title"/></p>
-                <p><textarea name="description" id="description" placeholder="Article body"></textarea></p>
-                <p><input type="text" name="category" id="category" value="{{ data.category }}"/></p>
-                <p><input type="submit" value="Submit"></p>
-            </form>
+            <button class="new-article"><h4>Create a new article</h4></button>
         </div>
     </div>
 

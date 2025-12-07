@@ -79,12 +79,22 @@ nav > a:hover {
 
 .category-overview {
     flex: 3;
+    margin: 0.5em;
 }
 
 .category-options {
-    flex: 2;
+    flex: 1;
+    margin: 0.5em;
 }
 
-.category-options > input, textarea {
-    width: 100%;
+.add-title, .add-description, .add-category {
+    width: 90%;
+}
+
+.add-description {
+    height: 200px;
+}
+
+.create-article {
+    display: none;
 }
