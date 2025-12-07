@@ -21,7 +21,7 @@
                 <h1>Mental activities section</h1>
                 <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Animi optio, nihil rem maxime quod molestiae debitis tenetur vitae perferendis quos inventore recusandae aspernatur accusantium, sunt aperiam at nostrum blanditiis maiores. Fuga, neque magnam voluptatum quis natus accusamus dolor voluptate illo, ut libero deserunt beatae cum vitae est sit quod ab!</p>
             {% endif %}
-            <form class="create-article" action="{{ url_for('article.show_articles_by_category', category=data.category) }}" method="post" >
+            <form id="create-article" class="create-article" action="{{ url_for('article.show_articles_by_category', category=data.category) }}" method="post" >
                 <p><input class="add-title" type="text" name="title" placeholder="Article title" id="title" /></p>
                 <p><textarea class="add-description" name="description" id="description" placeholder="Article body" rows="10" cols="50"></textarea></p>
                 <p><input class="add-category" type="text" name="category" id="category" value="{{ data.category }}"/></p>
@@ -30,7 +30,7 @@
         </div>
 
         <div class="category-options">
-            <button class="new-article"><h4>Create a new article</h4></button>
+            <button id="new-article" class="new-article"><h4>Create a new article</h4></button>
         </div>
     </div>
 
