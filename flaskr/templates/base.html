@@ -4,10 +4,21 @@
 <script src="{{ url_for('static', filename='app.js' )}}" defer></script>
 
 <nav>
-    <a href="{{ url_for('home.index') }}">Health App</a>
-    <a href="{{ url_for('article.show_articles_by_category', category='nutrition') }}">Nutrition</a>
-    <a href="{{ url_for('article.show_articles_by_category', category='physical_acitvity') }}">Physical activities</a>
-    <a href="{{ url_for('article.show_articles_by_category', category='mental_activity') }}">Mental activities</a>
+    <div class="logo-container">
+        <a class="logo-start" href="{{ url_for('home.index') }}">H</a>
+        <a class="logo-main" href="{{ url_for('home.index') }}">healthy</a>
+        <a class="logo-end" href="{{ url_for('home.index') }}">__</a>
+    </div>
+    <div class="article-sections">
+        <a class="nutrition-nav" href="{{ url_for('article.show_articles_by_category', category='nutrition') }}">Nutrition</a>
+        <a class="physical-nav" href="{{ url_for('article.show_articles_by_category', category='physical_acitvity') }}">Physical activities</a>
+        <a class="mental-nav" href="{{ url_for('article.show_articles_by_category', category='mental_activity') }}">Mental activities</a>
+    </div>
+    <div class="auth-nav">
+        <a href="#" class="login-nav">Login</a>
+        <a href="#" class="signup-nav">Sign Up</a>
+        <a href="#" class="logout-nav">Log Out</a>
+    </div>
 </nav>
 <section class="content">
     <header>
