@@ -74,6 +74,40 @@ nav > div > a:hover {
     background-color: black;
 }
 
+.site-options {
+    border-bottom: 1px solid grey;
+    border-top: 1px solid grey;
+    display: flex;
+    justify-content: space-between;
+    background-color: rgba(128, 128, 128, 0.22);
+    color: white;
+}
+
+.path {
+    margin-left: 2.5em;
+}
+
+.path > a {
+    text-decoration: none;
+    color: white;
+}
+
+.controls {
+    margin-right: 2.5em;
+    display: flex;
+    column-gap: 1em;
+}
+
+.options-drop-down > button {
+    background-color: rgba(128, 128, 128, 0.053);
+    color: white;
+    border: none;
+    height: 100%;
+    font-size: 1em;
+    padding: 0.6em;
+    margin-right: 1em;
+}
+
 .category-box {
     margin-top: 1em;
     display: flex;
