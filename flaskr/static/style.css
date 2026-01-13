@@ -14,7 +14,7 @@ a:visited {
 
 nav {
     padding: 1em;
-    background-color: #404040;
+    /* background-color: #404040; */
     display: flex;
     justify-content: space-between;
 }
@@ -32,27 +32,46 @@ nav > div {
 }
 
 nav > div > a {
-    flex: auto;
-    margin: 0.1em;
-    padding: 10px;
-    background-color: palegoldenrod;
-    text-align: center;
+    background-color: black;
+    color: white;
+    border: none;
     text-decoration: none;
-    border-radius: 10px;
-    opacity: 0.7;
+    padding-top: 0.6em;
+}
+
+.article-sections > a, .auth-nav > a {
+    padding: 0.6em;
 }
 
 nav > a:link {
     color: rgb(109, 158, 237);
 }
 
-nav > a:visited {
-    color: 	#4c3c3c;
+nav > div > a:visited {
+    color: 	white;
 }
 
-nav > a:hover {
-    color: blue;
-    opacity: 1;
+nav > div > a:hover {
+    background-color: rgb(4, 4, 111);
+}
+
+.logo-start {
+    color: rgb(168, 168, 244);
+    text-decoration: none;
+}
+
+.logo-main {
+    color: white;
+    text-decoration: none;
+}
+
+.logo-end {
+    color: rgb(168, 168, 244);
+    text-decoration: none;
+}
+
+.logo-start:hover, .logo-main:hover, .logo-end:hover {
+    background-color: black;
 }
 
 .category-box {
